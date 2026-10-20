@@ -213,7 +213,9 @@ ol.refs li{margin-bottom:9px}
   .head{padding-block:64px 0}
   .t,.abs,.tw,details,.sheet,.cols,figure,.nav{margin-left:0;margin-right:0}
   h2.t,.t,.abs,details{max-width:606px}
-  .row .t,.row .tw,.row details{max-width:none}
+  .row .t,.row .tw,.row details,.row .abs{max-width:none}
+  .row.flip{grid-template-columns:minmax(0,1.12fr) minmax(0,0.88fr)}
+  .row.flip .abs{margin-top:0;align-self:center}
   figure,.tw,.sheet,.nav{max-width:860px}
   .pair{max-width:860px}
 }
@@ -235,6 +237,7 @@ ol.refs li{margin-bottom:9px}
   </div>
 </header>
 
+<div class="row flip">
 <figure>
   <div class="fw">
     <svg viewBox="92 76 548 262" role="img" aria-label="Technical cross-section of the target system: the acoustic interface drawn solid with its dimensions, the wearable transducer and flexible circuit drawn as thin dashed outlines above it.">
@@ -302,6 +305,7 @@ ol.refs li{margin-bottom:9px}
 <div class="abs t">
   <h4>Abstract</h4>
   <p class="lead">Precise muscle monitoring needs force and joint motion read together. IMUs give kinematics but no force, and surface EMG gives activation but cannot reach deep muscle, so our lab is building one wearable module that fuses ultrasound, EMG and IMU. Ultrasound is the only one of the three that reaches deep muscle, and the only one that still cannot stay on skin for a working day — the couplant dries within hours and never adheres. I show that in AMPS hydrogels acoustic transparency and skin adhesion are governed by the same compositional variable, so no single composition satisfies both, and resolve that constraint geometrically rather than chemically. The resulting couplant stays coupled for <span class="m">24&nbsp;h</span> and supports <span class="m">71</span> consecutive measurement cycles from one attachment.</p>
+</div>
 </div>
 
 <nav class="nav" aria-label="Sections">
