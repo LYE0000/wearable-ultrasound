@@ -207,6 +207,14 @@ ol.refs li{margin-bottom:9px}
 @media (max-width:1680px){#ov img{width:1200px}}
 @media (max-width:1240px){#ov img{width:100%}}
 @media (max-width:640px){body{font-size:17px}.head{padding-block:48px 0}h2{margin-top:46px}}
+
+/* masthead follows the same left edge as the rows (must come after .head) */
+@media (min-width:1080px){
+  .head{text-align:left;padding-block:64px 0}
+  .head h1{margin:0 0 .4em;max-width:16ch}
+  .head .sub{margin:0 0 24px}
+  .btns{justify-content:flex-start}
+}
 </style>
 
 <style>img{max-width:100%}[hidden]{display:none!important}</style>
