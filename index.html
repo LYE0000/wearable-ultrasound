@@ -41,22 +41,11 @@ body{background:var(--bg);color:var(--fg);margin:0;
   font-family:var(--serif);font-optical-sizing:auto;font-size:18px;line-height:1.66;
   -webkit-font-smoothing:antialiased}
 
-.page{max-width:1100px;margin:0 auto;
+.page{max-width:820px;margin:0 auto;
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
-  padding-block:0 96px}
+  padding-block:0 88px}
 .t{max-width:70ch;margin-left:auto;margin-right:auto}
-
-/* Wide screens: content runs left, captions sit in the right margin */
-@media (min-width:1040px){
-  .t{max-width:66ch;margin-left:0;margin-right:0}
-  figure{display:grid;grid-template-columns:minmax(0,740px) minmax(0,1fr);gap:30px;align-items:start}
-  figcaption{margin:2px 0 0;max-width:none;font-size:13.5px}
-  .tw{margin-left:0;margin-right:0}
-  .sheet{max-width:740px}
-  .cols{max-width:900px}
-  details{margin-left:0;margin-right:0}
-}
 p{margin:0 0 1.1em}
 a{color:var(--link);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
 a:hover{border-bottom-color:var(--link)}
@@ -105,7 +94,7 @@ h4{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.12em
 
 /* ---- figures ---- */
 figure{margin:26px 0}
-.fw{background:var(--soft);border:1px solid var(--rule);border-radius:3px;padding:18px 14px 8px;overflow-x:auto}
+.fw{background:var(--soft);border:1px solid var(--rule);border-radius:3px;padding:10px 10px 6px;overflow-x:auto}
 .fw svg{display:block;width:100%;height:auto;min-width:430px}
 .fp{border:1px solid var(--rule);border-radius:3px;overflow:hidden;line-height:0}
 .fp img{display:block;width:100%;height:auto}
@@ -194,7 +183,7 @@ ol.refs li{margin-bottom:9px}
 
 <figure>
   <div class="fw">
-    <svg viewBox="0 0 640 336" role="img" aria-label="Technical cross-section of the target system: the acoustic interface drawn solid with its dimensions, the wearable transducer and flexible circuit drawn as thin dashed outlines above it.">
+    <svg viewBox="92 76 548 262" role="img" aria-label="Technical cross-section of the target system: the acoustic interface drawn solid with its dimensions, the wearable transducer and flexible circuit drawn as thin dashed outlines above it.">
       <defs>
         <pattern id="hm" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
           <line x1="0" y1="0" x2="0" y2="7" stroke="var(--fg)" stroke-width="0.6" opacity="0.28"/>
@@ -273,7 +262,7 @@ ol.refs li{margin-bottom:9px}
   <h2 class="t"><span class="lbl">Context</span>Muscle monitoring needs more than one signal</h2>
   <figure>
     <div class="fw">
-      <svg viewBox="0 0 640 268" role="img" aria-label="Depth reached by each modality at the thigh: IMU gives no depth information, surface EMG reaches only superficial muscle, and ultrasound resolves through to the femur.">
+      <svg viewBox="8 30 626 240" role="img" aria-label="Depth reached by each modality at the thigh: IMU gives no depth information, surface EMG reaches only superficial muscle, and ultrasound resolves through to the femur.">
         <defs>
           <pattern id="he" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
             <line x1="0" y1="0" x2="0" y2="6" stroke="var(--fg)" stroke-width="0.7" opacity="0.45"/>
@@ -334,7 +323,7 @@ ol.refs li{margin-bottom:9px}
 
   <figure>
     <div class="fw">
-      <svg viewBox="0 0 620 400" role="img" aria-label="Attenuation against peel strength for AMPS20, AMPS30 and AMPS40. The region that is both transparent and adhesive contains no composition.">
+      <svg viewBox="4 38 614 350" role="img" aria-label="Attenuation against peel strength for AMPS20, AMPS30 and AMPS40. The region that is both transparent and adhesive contains no composition.">
         <rect x="296" y="196" width="284" height="134" fill="var(--crit)" opacity="0.07"/>
         <g stroke="var(--rule)" stroke-width="1">
           <line x1="70" y1="267.8" x2="580" y2="267.8"/><line x1="70" y1="143.3" x2="580" y2="143.3"/><line x1="70" y1="81.1" x2="580" y2="81.1"/>
@@ -375,7 +364,7 @@ ol.refs li{margin-bottom:9px}
 
   <figure>
     <div class="fw">
-      <svg viewBox="0 0 700 300" role="img" aria-label="Cross-section and plan view: an 8 mm exposed face over a 10 mm transparent core flanked by a 4 mm adhesive edge, with the beam confined to the core.">
+      <svg viewBox="8 42 650 246" role="img" aria-label="Cross-section and plan view: an 8 mm exposed face over a 10 mm transparent core flanked by a 4 mm adhesive edge, with the beam confined to the core.">
         <rect x="120" y="58" width="160" height="44" rx="2" fill="var(--fg)" opacity="0.85"/>
         <text x="200" y="85" class="sv" font-size="12" font-weight="600" fill="var(--bg)" text-anchor="middle">transducer</text>
         <line x1="120" y1="116" x2="280" y2="116" stroke="var(--fg)" stroke-width="1.1"/>
@@ -477,7 +466,7 @@ ol.refs li{margin-bottom:9px}
 
   <figure>
     <div class="fw">
-      <svg viewBox="0 0 640 312" role="img" aria-label="Within one cycle the deformation index drops to 66 percent and recovers to 79. Across five cycles the pre-exercise value falls from 100 to 58.">
+      <svg viewBox="8 28 626 284" role="img" aria-label="Within one cycle the deformation index drops to 66 percent and recovers to 79. Across five cycles the pre-exercise value falls from 100 to 58.">
         <g stroke="var(--rule)" stroke-width="1">
           <line x1="60" y1="250" x2="290" y2="250"/><line x1="370" y1="250" x2="610" y2="250"/>
           <line x1="60" y1="150" x2="290" y2="150"/><line x1="370" y1="150" x2="610" y2="150"/>
