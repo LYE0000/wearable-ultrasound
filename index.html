@@ -132,6 +132,17 @@ td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-ali
 .key-col td:first-child{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
   color:var(--muted);width:168px}
 
+/* two-up: a table or short block beside an image */
+.pair{display:grid;gap:24px;margin:20px 0;align-items:start}
+@media (min-width:720px){.pair{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}}
+.pair>*{min-width:0}
+.pair figure{margin:0}
+.pair .tw{margin:0;max-width:none}
+.pair table{min-width:0;font-size:13px}
+.pair th,.pair td{padding:9px 10px 9px 0}
+.pair td.num,.pair th.num{font-size:12.5px}
+.pair .note{font-size:13.5px;color:var(--muted);margin:12px 0 0;font-family:var(--sans)}
+
 ul{margin:14px 0;padding-left:20px}
 li{margin:0 0 9px}
 details{border-top:1px solid var(--rule);margin:30px auto 0;max-width:70ch}
@@ -193,8 +204,8 @@ ol.refs li{margin-bottom:9px}
       <rect x="150" y="252" width="440" height="62" fill="url(#hm)"/>
       <line x1="150" y1="252" x2="590" y2="252" stroke="var(--fg)" stroke-width="1.1"/>
       <line x1="150" y1="314" x2="590" y2="314" stroke="var(--fg)" stroke-width="0.8" opacity="0.4"/>
-      <text x="584" y="266" font-size="10" fill="var(--muted)" text-anchor="end">skin</text>
-      <text x="584" y="308" font-size="10" fill="var(--muted)" text-anchor="end">muscle</text>
+      <text x="584" y="266" font-size="7.5" fill="var(--muted)" text-anchor="end">skin</text>
+      <text x="584" y="308" font-size="7.5" fill="var(--muted)" text-anchor="end">muscle</text>
 
       <line x1="312" y1="226" x2="322" y2="314" stroke="var(--signal)" stroke-width="0.9"/>
       <line x1="448" y1="226" x2="438" y2="314" stroke="var(--signal)" stroke-width="0.9"/>
@@ -216,12 +227,12 @@ ol.refs li{margin-bottom:9px}
         <line x1="236" y1="239" x2="246" y2="239"/>
       </g>
       <g text-anchor="end" fill="var(--fg)">
-        <text x="230" y="150" class="sv" font-size="12.5">Flexible circuit</text>
-        <text x="230" y="165" font-size="10" fill="var(--muted)">planned</text>
-        <text x="230" y="200" class="sv" font-size="12.5">Wearable transducer</text>
-        <text x="230" y="215" font-size="10" fill="var(--muted)">in progress</text>
-        <text x="230" y="236" class="sv" font-size="12.5">Acoustic interface</text>
-        <text x="230" y="251" font-size="10" fill="var(--signal)">built · 1 mm thick</text>
+        <text x="230" y="150" class="sv" font-size="9.5">Flexible circuit</text>
+        <text x="230" y="163" font-size="7.5" fill="var(--muted)">planned</text>
+        <text x="230" y="200" class="sv" font-size="9.5">Wearable transducer</text>
+        <text x="230" y="213" font-size="7.5" fill="var(--muted)">in progress</text>
+        <text x="230" y="236" class="sv" font-size="9.5">Acoustic interface</text>
+        <text x="230" y="249" font-size="7.5" fill="var(--signal)">built · 1 mm thick</text>
       </g>
 
       <g stroke="var(--fg)" stroke-width="0.7">
@@ -236,10 +247,10 @@ ol.refs li{margin-bottom:9px}
         <path d="M298 102 l7 -3 v6 z" fill="var(--fg)" stroke="none"/>
         <path d="M462 102 l-7 -3 v6 z" fill="var(--fg)" stroke="none"/>
       </g>
-      <text x="380" y="118" font-size="10.5" fill="var(--fg)" text-anchor="middle">18 mm</text>
-      <text x="380" y="96" font-size="10.5" fill="var(--fg)" text-anchor="middle">core 10 mm</text>
-      <text x="524" y="243" font-size="10" fill="var(--edge)">adhesive edge</text>
-      <text x="380" y="330" font-size="10" fill="var(--muted)" text-anchor="middle">beam path</text>
+      <text x="380" y="118" font-size="8" fill="var(--fg)" text-anchor="middle">18 mm</text>
+      <text x="380" y="96" font-size="8" fill="var(--fg)" text-anchor="middle">core 10 mm</text>
+      <text x="524" y="243" font-size="7.5" fill="var(--edge)">adhesive edge</text>
+      <text x="380" y="330" font-size="7.5" fill="var(--muted)" text-anchor="middle">beam path</text>
     </svg>
   </div>
   <figcaption>The system in cross-section, drawn to the dimensions that exist. The couplant is built and written up; the transducer and the circuit above it are outlines so far.</figcaption>
@@ -323,7 +334,7 @@ ol.refs li{margin-bottom:9px}
 
   <figure>
     <div class="fw">
-      <svg viewBox="4 38 614 350" role="img" aria-label="Attenuation against peel strength for AMPS20, AMPS30 and AMPS40. The region that is both transparent and adhesive contains no composition.">
+      <svg viewBox="4 38 614 360" role="img" aria-label="Attenuation against peel strength for AMPS20, AMPS30 and AMPS40. The region that is both transparent and adhesive contains no composition.">
         <rect x="296" y="196" width="284" height="134" fill="var(--crit)" opacity="0.07"/>
         <g stroke="var(--rule)" stroke-width="1">
           <line x1="70" y1="267.8" x2="580" y2="267.8"/><line x1="70" y1="143.3" x2="580" y2="143.3"/><line x1="70" y1="81.1" x2="580" y2="81.1"/>
@@ -405,26 +416,29 @@ ol.refs li{margin-bottom:9px}
 
   <div class="t"><h3>It holds for a working day</h3></div>
 
-  <div class="tw">
-    <table>
-      <thead><tr><th>Metric</th><th class="num">Concentric couplant</th><th class="num">Benchmark</th></tr></thead>
-      <tbody>
-        <tr><td>90° peel on glass</td><td class="num">22.6 N m⁻¹ · 5.6×</td><td class="num">3.99 commercial</td></tr>
-        <tr><td>90° peel on skin</td><td class="num">33.5 N m⁻¹ · 3.3×</td><td class="num">10.2 commercial</td></tr>
-        <tr><td>Mass kept at 5 h</td><td class="num">77%</td><td class="num">3× lower, gel</td></tr>
-        <tr><td>Phantom coupling</td><td class="num">24 h · 5/5 intact</td><td class="num">12.0 ± 3.5 h · 5/5 failed</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="t"><p>Ultrasound gel lost <span class="m">40&nbsp;dB</span> of back-wall echo over the same day; the couplant held within one. Log-rank <span class="m">p&nbsp;=&nbsp;0.0018</span>.</p></div>
-
-  <figure>
-    <div class="fp">
-      <img src="fig/adhesion.png" width="2878" height="1476" alt="The transducer housing lifted from the forearm; the couplant stays bonded and tents the skin upward with it.">
+  <div class="pair">
+    <div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Metric</th><th class="num">Couplant</th><th class="num">Benchmark</th></tr></thead>
+          <tbody>
+            <tr><td>90° peel on glass</td><td class="num">22.6 · 5.6×</td><td class="num">3.99</td></tr>
+            <tr><td>90° peel on skin</td><td class="num">33.5 · 3.3×</td><td class="num">10.2</td></tr>
+            <tr><td>Mass kept at 5 h</td><td class="num">77%</td><td class="num">3× lower</td></tr>
+            <tr><td>Phantom coupling</td><td class="num">24 h · 5/5</td><td class="num">12.0 h · 0/5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Peel strength in N m⁻¹ against a commercial adhesive hydrogel; mass against ultrasound gel; coupling as runs still intact at 24 h. Gel lost <span class="m">40 dB</span> of back-wall echo over the same day while the couplant held within one. Log-rank <span class="m">p = 0.0018</span>.</p>
     </div>
-    <figcaption>Lifting the housing tents the skin rather than releasing it.</figcaption>
-  </figure>
+
+    <figure>
+      <div class="fp">
+        <img src="fig/adhesion.png" width="2878" height="1476" alt="The transducer housing lifted from the forearm; the couplant stays bonded and tents the skin upward with it.">
+      </div>
+      <figcaption>Lifting the housing tents the skin rather than releasing it.</figcaption>
+    </figure>
+  </div>
 
   <div class="t">
     <h3>One attachment shows a timescale discrete assessment cannot</h3>
