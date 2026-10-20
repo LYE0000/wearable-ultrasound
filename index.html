@@ -58,10 +58,7 @@ body{background:var(--bg);color:var(--fg);margin:0;
 @media (min-width:1080px){
   .row{grid-template-columns:minmax(0,0.88fr) minmax(0,1.12fr)}
   .row figure,.row .fw,.row .fp,.row .tw{max-width:none}
-  /* everything aligns to one left edge so the rows do not look pasted on */
-  .head{text-align:left}
-  .head h1,.head .sub{margin-left:0}
-  .btns{justify-content:flex-start}
+  /* body blocks align to one left edge; the masthead stays centred */
   .nav{justify-content:flex-start;padding-inline:18px}
   .t,.abs,details{margin-left:0;margin-right:0;max-width:66ch}
   figure,.tw,.sheet{max-width:860px}
@@ -214,7 +211,7 @@ ol.refs li{margin-bottom:9px}
   .t,.abs,.tw,details,.sheet,.cols,figure,.nav{margin-left:0;margin-right:0}
   h2.t,.t,.abs,details{max-width:606px}
   .row .t,.row .tw,.row details,.row .abs{max-width:none}
-  .row.flip{grid-template-columns:minmax(0,1.12fr) minmax(0,0.88fr)}
+  .row.flip{grid-template-columns:minmax(0,1.42fr) minmax(0,0.9fr)}
   .row.flip .abs{margin-top:0;align-self:center}
   figure,.tw,.sheet,.nav{max-width:860px}
   .pair{max-width:860px}
