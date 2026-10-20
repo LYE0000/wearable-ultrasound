@@ -215,6 +215,10 @@ ol.refs li{margin-bottom:9px}
   section.mid>figure{margin-left:auto;margin-right:auto;max-width:1040px}
   h2.t,.t,.abs,details{max-width:606px}
   .row .t,.row .tw,.row details,.row .abs{max-width:none}
+  /* one row runs the other way so three identical rows do not stack up */
+  .row.rev{grid-template-columns:minmax(0,1.12fr) minmax(0,0.88fr)}
+  .row.rev>.t{order:2}
+  .row.rev>figure{order:1}
   .row.flip{grid-template-columns:minmax(0,1.42fr) minmax(0,0.9fr)}
   .row.flip .abs{margin-top:0;align-self:center}
   .row.flip figure{align-self:center}
@@ -421,7 +425,7 @@ ol.refs li{margin-bottom:9px}
   </figure>
   </div>
 
-  <div class="row">
+  <div class="row rev">
   <div class="t">
     <h3>Separating the two functions in space resolves it</h3>
     <p>Earlier work stacked adhesive on acoustic, under a quarter wavelength so the stack would not register. I divided them radially instead: a transparent core inside an adhesive edge, sized so the beam never reaches the edge.</p>
