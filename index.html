@@ -134,7 +134,19 @@ td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-ali
 
 /* two-up: a table or short block beside an image */
 .pair{display:grid;gap:24px;margin:20px 0;align-items:start}
-@media (min-width:720px){.pair{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}}
+@media (min-width:720px){
+  .pair{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+  .pair.wide-right{grid-template-columns:minmax(0,0.88fr) minmax(0,1.3fr)}
+}
+.pair .sig{padding:10px 10px 6px}
+.pair .sigtop{height:19px}
+.pair .sigtop .br span{font-size:9px;letter-spacing:0;bottom:7px}
+.pair .sigimg u{font-size:9px;right:6px}
+.pair .sigaxis{height:17px}
+.pair .sigaxis b{font-size:9px;top:5px}
+.pair .sigfoot{font-size:9px}
+.pair .fp.pad{padding:10px}
+.pair .fp.pad img{max-height:none}
 .pair>*{min-width:0}
 .pair figure{margin:0}
 .pair .tw{margin:0;max-width:none}
@@ -445,6 +457,7 @@ ol.refs li{margin-bottom:9px}
     <p>Across 13 sessions and 71 measurement cycles, the couplant was never re-applied within a session.</p>
   </div>
 
+  <div class="pair wide-right">
   <figure>
     <div class="fp pad">
       <img src="fig/setup.png" width="1761" height="1152" alt="Illustration of a seated participant on a leg-extension machine, with a callout showing the transducer over the concentric couplant on the quadriceps, between two stimulation electrodes.">
@@ -477,6 +490,7 @@ ol.refs li{margin-bottom:9px}
     </div>
     <figcaption>What the probe returns. Each step in the femur echo is the muscle thickening under one stimulation window, and the deformation index is that thickness change, measured between the boundaries drawn here.</figcaption>
   </figure>
+  </div>
 
   <figure>
     <div class="fw">
