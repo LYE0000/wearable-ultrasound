@@ -224,6 +224,11 @@ ol.refs li{margin-bottom:9px}
   .row.rev{grid-template-columns:minmax(0,1.12fr) minmax(0,0.88fr)}
   .row.rev>.t{order:2}
   .row.rev>figure{order:1}
+  /* captions start at the figure's left edge, not centred under it */
+  figcaption{margin-left:0;margin-right:0}
+  /* the on-body block runs the full measure like the rows above it */
+  .pair.wide-right{max-width:none}
+  section .wide{max-width:1040px}
   .row.flip{grid-template-columns:minmax(0,1.42fr) minmax(0,0.9fr)}
   .row.flip .abs{margin-top:0;align-self:center}
   .row.flip figure{align-self:center}
@@ -545,7 +550,7 @@ ol.refs li{margin-bottom:9px}
   </figure>
   </div>
 
-  <figure>
+  <figure class="wide">
     <div class="fw">
       <svg viewBox="8 28 626 284" role="img" aria-label="Within one cycle the deformation index drops to 66 percent and recovers to 79. Across five cycles the pre-exercise value falls from 100 to 58.">
         <g stroke="var(--rule)" stroke-width="1">
@@ -554,39 +559,39 @@ ol.refs li{margin-bottom:9px}
         </g>
         <line x1="60" y1="83.3" x2="290" y2="83.3" stroke="var(--fg)" stroke-width="1" stroke-dasharray="4 4"/>
         <line x1="370" y1="83.3" x2="610" y2="83.3" stroke="var(--fg)" stroke-width="1" stroke-dasharray="4 4"/>
-        <g font-size="10.5" fill="var(--muted)" text-anchor="end">
+        <g font-size="9" fill="var(--muted)" text-anchor="end">
           <text x="52" y="87">100</text><text x="52" y="154">80</text><text x="52" y="254">50</text>
         </g>
-        <text x="16" y="165" font-size="10.5" fill="var(--muted)" transform="rotate(-90 16 165)" text-anchor="middle">deformation index [%]</text>
-        <text x="60" y="42" class="sv" font-size="12.5" font-weight="600" fill="var(--fg)">Within one cycle</text>
-        <text x="60" y="58" font-size="10.5" fill="var(--muted)">four windows, 40 s apart</text>
+        <text x="16" y="165" font-size="9" fill="var(--muted)" transform="rotate(-90 16 165)" text-anchor="middle">deformation index [%]</text>
+        <text x="60" y="42" class="sv" font-size="10.5" font-weight="600" fill="var(--fg)">Within one cycle</text>
+        <text x="60" y="58" font-size="9" fill="var(--muted)">four windows, 40 s apart</text>
         <rect x="88" y="70" width="29" height="180" fill="var(--fg)" opacity="0.06"/>
-        <text x="102" y="266" font-size="9.5" fill="var(--muted)" text-anchor="middle">exercise</text>
+        <text x="102" y="266" font-size="8" fill="var(--muted)" text-anchor="middle">exercise</text>
         <polyline points="60,83.3 117.5,196.7 175,183.3 232.5,163.3 290,153.3" fill="none" stroke="var(--signal)" stroke-width="2.2"/>
         <g fill="var(--signal)">
           <circle cx="60" cy="83.3" r="3.8"/><circle cx="117.5" cy="196.7" r="3.8"/><circle cx="175" cy="183.3" r="3.8"/>
           <circle cx="232.5" cy="163.3" r="3.8"/><circle cx="290" cy="153.3" r="3.8"/>
         </g>
-        <text x="117.5" y="213" font-size="10.5" fill="var(--signal)" text-anchor="middle">66</text>
-        <text x="290" y="145" font-size="10.5" fill="var(--signal)" text-anchor="end">79</text>
-        <g font-size="10" fill="var(--muted)" text-anchor="middle">
+        <text x="117.5" y="213" font-size="9" fill="var(--signal)" text-anchor="middle">66</text>
+        <text x="290" y="145" font-size="9" fill="var(--signal)" text-anchor="end">79</text>
+        <g font-size="8.5" fill="var(--muted)" text-anchor="middle">
           <text x="60" y="286">Pre</text><text x="117.5" y="286">Post</text><text x="175" y="286">Rec 1</text>
           <text x="232.5" y="286">Rec 2</text><text x="290" y="286">Rec 3</text>
         </g>
-        <text x="175" y="304" class="sv" font-size="11" fill="var(--signal)" text-anchor="middle">recovers</text>
-        <text x="370" y="42" class="sv" font-size="12.5" font-weight="600" fill="var(--fg)">Across one session</text>
-        <text x="370" y="58" font-size="10.5" fill="var(--muted)">pre-exercise value, cycle to cycle</text>
+        <text x="175" y="304" class="sv" font-size="9" fill="var(--signal)" text-anchor="middle">recovers</text>
+        <text x="370" y="42" class="sv" font-size="10.5" font-weight="600" fill="var(--fg)">Across one session</text>
+        <text x="370" y="58" font-size="9" fill="var(--muted)">pre-exercise value, cycle to cycle</text>
         <polyline points="370,83.3 430,143.3 490,193.3 550,203.3 610,223.3" fill="none" stroke="var(--edge)" stroke-width="2.2"/>
         <g fill="var(--edge)">
           <circle cx="370" cy="83.3" r="3.8"/><circle cx="430" cy="143.3" r="3.8"/><circle cx="490" cy="193.3" r="3.8"/>
           <circle cx="550" cy="203.3" r="3.8"/><circle cx="610" cy="223.3" r="3.8"/>
         </g>
-        <g font-size="10.5" fill="var(--edge)" text-anchor="middle">
+        <g font-size="9" fill="var(--edge)" text-anchor="middle">
           <text x="430" y="136">82</text><text x="490" y="186">67</text><text x="550" y="196">64</text><text x="610" y="216">58</text>
         </g>
-        <g font-size="10" fill="var(--muted)" text-anchor="middle">
+        <g font-size="8.5" fill="var(--muted)" text-anchor="middle">
           <text x="370" y="286">1</text><text x="430" y="286">2</text><text x="490" y="286">3</text><text x="550" y="286">4</text><text x="610" y="286">5</text>
-          <text x="490" y="304" class="sv" font-size="11" fill="var(--edge)">declines, front-loaded</text>
+          <text x="490" y="304" class="sv" font-size="9" fill="var(--edge)">declines, front-loaded</text>
         </g>
       </svg>
     </div>
