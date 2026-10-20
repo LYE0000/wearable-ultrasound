@@ -208,12 +208,17 @@ ol.refs li{margin-bottom:9px}
 @media (max-width:1240px){#ov img{width:100%}}
 @media (max-width:640px){body{font-size:17px}.head{padding-block:48px 0}h2{margin-top:46px}}
 
-/* masthead follows the same left edge as the rows (must come after .head) */
+/* One left edge, one text measure, one figure measure (must come last) */
 @media (min-width:1080px){
   .head{text-align:left;padding-block:64px 0}
   .head h1{margin:0 0 .4em;max-width:16ch}
   .head .sub{margin:0 0 24px}
   .btns{justify-content:flex-start}
+  .t,.abs,.tw,details,.sheet,.cols,figure,.nav{margin-left:0;margin-right:0}
+  h2.t,.t,.abs,details{max-width:606px}
+  .row .t,.row .tw,.row details{max-width:none}
+  figure,.tw,.sheet,.nav{max-width:860px}
+  .pair{max-width:860px}
 }
 </style>
 
