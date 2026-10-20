@@ -212,7 +212,7 @@ ol.refs li{margin-bottom:9px}
   .nav{margin-left:auto;margin-right:auto;justify-content:center;max-width:none}
   /* single-column section, centred on the page */
   section.mid>h2{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
-  section.mid>figure{margin-left:auto;margin-right:auto}
+  section.mid>figure{margin-left:auto;margin-right:auto;max-width:1040px}
   h2.t,.t,.abs,details{max-width:606px}
   .row .t,.row .tw,.row details,.row .abs{max-width:none}
   .row.flip{grid-template-columns:minmax(0,1.42fr) minmax(0,0.9fr)}
@@ -335,7 +335,7 @@ ol.refs li{margin-bottom:9px}
           <line x1="388.1" y1="54" x2="388.1" y2="214"/>
           <line x1="520.4" y1="54" x2="520.4" y2="214"/>
         </g>
-        <g font-size="10" fill="var(--muted)">
+        <g font-size="8.5" fill="var(--muted)">
           <text x="152" y="46">skin + fat</text>
           <text x="263" y="46">rectus femoris</text>
           <text x="390" y="46">vastus intermedius</text>
@@ -343,29 +343,29 @@ ol.refs li{margin-bottom:9px}
         </g>
 
         <g text-anchor="end" fill="var(--fg)">
-          <text x="140" y="90" class="sv" font-size="12.5">IMU</text>
-          <text x="140" y="104" font-size="9.5" fill="var(--muted)">kinematics</text>
-          <text x="140" y="143" class="sv" font-size="12.5">Surface EMG</text>
-          <text x="140" y="157" font-size="9.5" fill="var(--muted)">activation</text>
-          <text x="140" y="196" class="sv" font-size="12.5" font-weight="600">Ultrasound</text>
-          <text x="140" y="210" font-size="9.5" fill="var(--signal)">structure</text>
+          <text x="140" y="90" class="sv" font-size="10.5">IMU</text>
+          <text x="140" y="104" font-size="8" fill="var(--muted)">kinematics</text>
+          <text x="140" y="143" class="sv" font-size="10.5">Surface EMG</text>
+          <text x="140" y="157" font-size="8" fill="var(--muted)">activation</text>
+          <text x="140" y="196" class="sv" font-size="10.5" font-weight="600">Ultrasound</text>
+          <text x="140" y="210" font-size="8" fill="var(--signal)">structure</text>
         </g>
 
         <rect x="150" y="78" width="7" height="16" fill="var(--fg)" opacity="0.55"/>
-        <text x="166" y="90" font-size="10.5" fill="var(--muted)">no depth information — limb motion only</text>
+        <text x="166" y="90" font-size="9" fill="var(--muted)">no depth information — limb motion only</text>
 
         <rect x="150" y="131" width="138" height="16" fill="url(#he)" stroke="var(--fg)" stroke-width="0.8"/>
-        <text x="298" y="143" font-size="10.5" fill="var(--muted)">attenuates with depth; superficial muscle only</text>
+        <text x="298" y="143" font-size="9" fill="var(--muted)">attenuates with depth; superficial muscle only</text>
 
         <rect x="150" y="184" width="450" height="16" fill="var(--signal)" opacity="0.22"/>
         <rect x="150" y="184" width="450" height="16" fill="none" stroke="var(--signal)" stroke-width="1.2"/>
-        <text x="596" y="178" font-size="10.5" fill="var(--signal)" text-anchor="end">resolves every boundary above</text>
+        <text x="596" y="178" font-size="9" fill="var(--signal)" text-anchor="end">resolves every boundary above</text>
 
         <line x1="150" y1="230" x2="600" y2="230" stroke="var(--fg)" stroke-width="0.8"/>
         <path d="M600 230 l-8 -3.5 v7 z" fill="var(--fg)"/>
-        <text x="150" y="246" font-size="10" fill="var(--muted)">skin surface</text>
-        <text x="600" y="246" font-size="10" fill="var(--muted)" text-anchor="end">depth</text>
-        <text x="150" y="264" font-size="10" fill="var(--muted)">bands drawn at the boundary depths measured on the thigh</text>
+        <text x="150" y="246" font-size="8.5" fill="var(--muted)">skin surface</text>
+        <text x="600" y="246" font-size="8.5" fill="var(--muted)" text-anchor="end">depth</text>
+        <text x="150" y="264" font-size="8.5" fill="var(--muted)">bands drawn at the boundary depths measured on the thigh</text>
       </svg>
     </div>
     <figcaption>Why the fusion module needs ultrasound at all. IMU and surface EMG stop at the skin; only ultrasound resolves the deep boundaries the deformation index is measured between. It is also the only one of the three that cannot yet stay on skin for a working day.</figcaption>
