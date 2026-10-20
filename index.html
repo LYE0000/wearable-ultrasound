@@ -227,7 +227,9 @@ ol.refs li{margin-bottom:9px}
   /* captions start at the figure's left edge, not centred under it */
   figcaption{margin-left:0;margin-right:0}
   /* the on-body block runs the full measure like the rows above it */
-  .pair.wide-right{max-width:none}
+  .pair.wide-right{max-width:none;grid-template-columns:minmax(0,1fr) minmax(0,1.18fr)}
+  .pair.wide-right .fp.pad{align-items:center}
+  .pair.wide-right .fp.pad img{max-height:250px}
   .pair.wide-right .sigimg u{font-size:11.5px;right:9px}
   .pair.wide-right .sigaxis b,.pair.wide-right .sigtop .br span,.pair.wide-right .sigfoot{font-size:10px}
   section .wide{max-width:1040px}
@@ -514,7 +516,7 @@ ol.refs li{margin-bottom:9px}
 
   <div class="t">
     <h3>One attachment shows a timescale discrete assessment cannot</h3>
-    <p>Across 13 sessions and 71 measurement cycles, the couplant was never re-applied within a session.</p>
+    <p>Across 13 sessions and 71 cycles, the couplant was never reapplied within a session.</p>
   </div>
 
   <div class="pair wide-right">
