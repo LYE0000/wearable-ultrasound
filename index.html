@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Three Layers to a Wearable Ultrasound</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* Single column, 70ch of text; figures run slightly wider. No bands, no cards. */
+:root{
+  --bg:#FFFFFF; --fg:#1A1D1D; --muted:#636C6D; --rule:#E2E6E6; --soft:#F6F8F8;
+  --link:#0B6E72; --signal:#0B6E72; --edge:#B2621B; --crit:#9B2C2C;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101314; --fg:#E2E7E7; --muted:#949E9F; --rule:#262E2F; --soft:#171C1D;
+    --link:#5BC2C6; --signal:#5BC2C6; --edge:#E0954A; --crit:#E07070; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101314; --fg:#E2E7E7; --muted:#949E9F; --rule:#262E2F; --soft:#171C1D;
+  --link:#5BC2C6; --signal:#5BC2C6; --edge:#E0954A; --crit:#E07070; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+svg text{font-family:var(--mono)}
+svg text.sv{font-family:var(--sans)}
+body{background:var(--bg);color:var(--fg);margin:0;
+  font-family:var(--serif);font-optical-sizing:auto;font-size:18px;line-height:1.66;
+  -webkit-font-smoothing:antialiased}
+
+.page{max-width:940px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 96px}
+.t{max-width:70ch;margin-left:auto;margin-right:auto}
+p{margin:0 0 1.1em}
+a{color:var(--link);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
+a:hover{border-bottom-color:var(--link)}
+a:focus-visible,summary:focus-visible,.thumb:focus-visible{outline:2px solid var(--link);outline-offset:3px}
+.m{font-family:var(--mono);font-size:.92em;font-variant-numeric:tabular-nums}
+
+/* ---- masthead ---- */
+.head{text-align:center;padding-block:72px 0}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,5vw,3.1rem);line-height:1.12;
+  letter-spacing:-.015em;margin:0 auto .5em;max-width:18ch;text-wrap:balance}
+.head .sub{font-size:1.06rem;color:var(--muted);max-width:52ch;margin:0 auto 26px}
+.byline{font-family:var(--sans);font-size:15px;margin:0 0 6px}
+.affil{font-family:var(--sans);font-size:14px;color:var(--muted);margin:0 0 24px}
+.btns{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:0 0 8px}
+.btns a{font-family:var(--sans);font-size:13.5px;padding:7px 16px;border-radius:99px;
+  background:var(--fg);color:var(--bg);border:0}
+.btns a:hover{opacity:.85}
+.btns span{font-family:var(--sans);font-size:13.5px;padding:7px 16px;border-radius:99px;
+  border:1px solid var(--rule);color:var(--muted)}
+
+/* ---- sections ---- */
+section{padding-block:8px}
+h2{font-family:var(--serif);font-weight:600;font-size:1.62rem;line-height:1.25;letter-spacing:-.01em;
+  margin:58px 0 4px;text-wrap:balance}
+h2 .lbl{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:9px;font-weight:400}
+h3{font-family:var(--serif);font-weight:600;font-size:1.16rem;line-height:1.35;margin:34px 0 6px}
+h4{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:30px 0 10px}
+.abs{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding-block:26px;margin-top:44px}
+.abs h4{margin-top:0}
+.lead{font-size:1.02em}
+
+/* ---- in-page nav ---- */
+.nav{font-family:var(--sans);font-size:14px;color:var(--muted);text-align:center;
+  padding-block:16px;border-bottom:1px solid var(--rule);margin-top:34px}
+.nav a{margin:0 2px;border-bottom:0}
+.nav a:hover{border-bottom:1px solid var(--link)}
+.nav i{font-style:normal;opacity:.4;margin:0 8px}
+
+/* ---- figures ---- */
+figure{margin:30px 0}
+.fw{background:var(--soft);border:1px solid var(--rule);border-radius:3px;padding:18px 14px 8px;overflow-x:auto}
+.fw svg{display:block;width:100%;height:auto;min-width:430px}
+.fp{border:1px solid var(--rule);border-radius:3px;overflow:hidden;line-height:0}
+.fp img{display:block;width:100%;height:auto}
+.fp.pad{background:#fff;padding:16px;display:flex;justify-content:center}
+.fp.pad img{width:auto;max-width:100%;max-height:380px}
+figcaption{font-family:var(--sans);font-size:14px;line-height:1.55;color:var(--muted);
+  margin:12px auto 0;max-width:70ch}
+figcaption b{color:var(--fg);font-weight:600}
+
+/* ---- signal panel ---- */
+.sig{background:#0A1314;border:1px solid var(--rule);border-radius:3px;padding:14px 14px 8px}
+.sigtop{position:relative;height:26px}
+.sigtop .br{position:absolute;bottom:0;height:6px;border-top:1px solid #6E8285;border-left:1px solid #6E8285;border-right:1px solid #6E8285}
+.sigtop .br span{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:#9DAEB0}
+.sigimg{position:relative;line-height:0;border-radius:2px;overflow:hidden}
+.sigimg img{width:100%;height:auto;display:block}
+.sigimg u{position:absolute;right:12px;transform:translateY(-50%);line-height:1;text-decoration:none;
+  font-family:var(--sans);font-weight:500;font-size:12.5px;color:#F2F6F6;
+  text-shadow:0 0 6px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,.9)}
+.sigaxis{position:relative;height:22px;margin-top:5px}
+.sigaxis i{position:absolute;top:0;width:1px;height:4px;background:#4A5C5F}
+.sigaxis b{position:absolute;top:6px;transform:translateX(-50%);font-family:var(--mono);font-weight:400;font-size:10.5px;color:#9DAEB0}
+.sigfoot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:#6E8285}
+@media (max-width:620px){.sigtop .br span{font-size:9px;letter-spacing:0}.sigaxis b{font-size:9.5px}.sigimg u{font-size:10px;right:7px}}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;margin:20px auto;max-width:70ch}
+table{border-collapse:collapse;width:100%;min-width:460px;font-family:var(--sans);font-size:14.5px}
+th,td{text-align:left;padding:11px 16px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--fg)}
+tbody tr:last-child td{border-bottom:1px solid var(--fg)}
+td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;padding-right:0}
+.key-col td:first-child{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--muted);width:168px}
+
+ul{margin:14px 0;padding-left:20px}
+li{margin:0 0 9px}
+details{border-top:1px solid var(--rule);margin:30px auto 0;max-width:70ch}
+summary{cursor:pointer;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);padding:14px 0;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";color:var(--link)}
+details[open] summary::before{content:"– "}
+details ol,details ul{font-family:var(--sans);font-size:14.5px;color:var(--muted);margin:0 0 18px}
+
+/* ---- outputs ---- */
+.sheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0 0}
+.thumb{display:block;background:#fff;border:1px solid var(--rule);border-radius:3px;padding:7px;cursor:zoom-in;text-align:left}
+.thumb img{display:block;width:100%;height:80px;object-fit:contain}
+.thumb span{display:block;font-family:var(--mono);font-size:9.5px;color:#6B7678;margin-top:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;margin-top:14px;
+  font-family:var(--sans);font-size:14.5px;color:var(--muted)}
+.cols h4{margin-top:0}
+.kw{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:10px;line-height:1.9}
+ol.refs{font-family:var(--sans);font-size:14px;color:var(--muted);padding-left:22px;margin:14px 0 0}
+ol.refs li{margin-bottom:9px}
+.foot{border-top:1px solid var(--rule);margin-top:56px;padding-top:24px;
+  font-family:var(--sans);font-size:13.5px;color:var(--muted);text-align:center}
+
+#ov{position:fixed;inset:0;z-index:50;background:rgba(8,12,12,.95);overflow:auto;cursor:zoom-out;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+#ov img{display:block;margin:12px auto;max-width:none;width:1600px;background:#fff;border-radius:3px}
+@media (max-width:1680px){#ov img{width:1200px}}
+@media (max-width:1240px){#ov img{width:100%}}
+@media (max-width:640px){body{font-size:17px}.head{padding-block:48px 0}h2{margin-top:46px}}
+</style>
+
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="page">
+
+<header class="head">
+  <h1>Three layers to a wearable ultrasound</h1>
+  <p class="sub">Ultrasound sees muscle that electrodes cannot. Making it wearable takes an interface that stays on skin, a transducer that bends, and a circuit that reads it untethered.</p>
+  <p class="byline">Yeeun Lee&nbsp;&nbsp;이예은</p>
+  <p class="affil">M.S. candidate, Mechanical Systems Engineering, Sookmyung Women's University<br>B.S., Chemical and Biological Engineering</p>
+  <div class="btns">
+    <a href="https://www.linkedin.com/in/yeeunlee-smwu">LinkedIn</a>
+    <span>Manuscript in preparation</span>
+  </div>
+</header>
+
+<figure>
+  <div class="fw">
+    <svg viewBox="0 0 640 336" role="img" aria-label="Technical cross-section of the target system: the acoustic interface drawn solid with its dimensions, the wearable transducer and flexible circuit drawn as thin dashed outlines above it.">
+      <defs>
+        <pattern id="hm" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="7" stroke="var(--fg)" stroke-width="0.6" opacity="0.28"/>
+        </pattern>
+      </defs>
+
+      <rect x="150" y="252" width="440" height="62" fill="url(#hm)"/>
+      <line x1="150" y1="252" x2="590" y2="252" stroke="var(--fg)" stroke-width="1.1"/>
+      <line x1="150" y1="314" x2="590" y2="314" stroke="var(--fg)" stroke-width="0.8" opacity="0.4"/>
+      <text x="584" y="266" font-size="10" fill="var(--muted)" text-anchor="end">skin</text>
+      <text x="584" y="308" font-size="10" fill="var(--muted)" text-anchor="end">muscle</text>
+
+      <line x1="312" y1="226" x2="322" y2="314" stroke="var(--signal)" stroke-width="0.9"/>
+      <line x1="448" y1="226" x2="438" y2="314" stroke="var(--signal)" stroke-width="0.9"/>
+      <line x1="380" y1="226" x2="380" y2="314" stroke="var(--signal)" stroke-width="0.7" stroke-dasharray="2 4"/>
+
+      <rect x="250" y="226" width="260" height="26" fill="none" stroke="var(--fg)" stroke-width="1.1"/>
+      <rect x="250" y="226" width="48" height="26" fill="var(--edge)" opacity="0.55"/>
+      <rect x="462" y="226" width="48" height="26" fill="var(--edge)" opacity="0.55"/>
+      <rect x="298" y="226" width="164" height="26" fill="var(--signal)" opacity="0.16"/>
+      <line x1="298" y1="226" x2="298" y2="252" stroke="var(--fg)" stroke-width="0.8"/>
+      <line x1="462" y1="226" x2="462" y2="252" stroke="var(--fg)" stroke-width="0.8"/>
+
+      <rect x="302" y="182" width="156" height="42" fill="none" stroke="var(--fg)" stroke-width="0.9" stroke-dasharray="6 4" opacity="0.65"/>
+      <rect x="268" y="140" width="224" height="26" fill="none" stroke="var(--fg)" stroke-width="0.9" stroke-dasharray="6 4" opacity="0.45"/>
+
+      <g stroke="var(--fg)" stroke-width="0.7" opacity="0.5">
+        <line x1="236" y1="153" x2="264" y2="153"/>
+        <line x1="236" y1="203" x2="298" y2="203"/>
+        <line x1="236" y1="239" x2="246" y2="239"/>
+      </g>
+      <g text-anchor="end" fill="var(--fg)">
+        <text x="230" y="150" class="sv" font-size="12.5">Flexible circuit</text>
+        <text x="230" y="165" font-size="10" fill="var(--muted)">planned</text>
+        <text x="230" y="200" class="sv" font-size="12.5">Wearable transducer</text>
+        <text x="230" y="215" font-size="10" fill="var(--muted)">in progress</text>
+        <text x="230" y="236" class="sv" font-size="12.5">Acoustic interface</text>
+        <text x="230" y="251" font-size="10" fill="var(--signal)">built · 1 mm thick</text>
+      </g>
+
+      <g stroke="var(--fg)" stroke-width="0.7">
+        <line x1="250" y1="206" x2="250" y2="118"/>
+        <line x1="510" y1="206" x2="510" y2="118"/>
+        <line x1="250" y1="124" x2="510" y2="124"/>
+        <path d="M250 124 l7 -3 v6 z" fill="var(--fg)" stroke="none"/>
+        <path d="M510 124 l-7 -3 v6 z" fill="var(--fg)" stroke="none"/>
+        <line x1="298" y1="222" x2="298" y2="96"/>
+        <line x1="462" y1="222" x2="462" y2="96"/>
+        <line x1="298" y1="102" x2="462" y2="102"/>
+        <path d="M298 102 l7 -3 v6 z" fill="var(--fg)" stroke="none"/>
+        <path d="M462 102 l-7 -3 v6 z" fill="var(--fg)" stroke="none"/>
+      </g>
+      <text x="380" y="118" font-size="10.5" fill="var(--fg)" text-anchor="middle">18 mm</text>
+      <text x="380" y="96" font-size="10.5" fill="var(--fg)" text-anchor="middle">core 10 mm</text>
+      <text x="524" y="243" font-size="10" fill="var(--edge)">adhesive edge</text>
+      <text x="380" y="330" font-size="10" fill="var(--muted)" text-anchor="middle">beam path</text>
+    </svg>
+  </div>
+  <figcaption>The system in cross-section, drawn to the dimensions that exist. The couplant is built and written up; the transducer and the circuit above it are outlines so far.</figcaption>
+</figure>
+
+<div class="abs t">
+  <h4>Abstract</h4>
+  <p class="lead">Precise muscle monitoring needs force and joint motion read together. IMUs give kinematics but no force, and surface EMG gives activation but cannot reach deep muscle, so our lab is building one wearable module that fuses ultrasound, EMG and IMU. Ultrasound is the only one of the three that reaches deep muscle, and the only one that still cannot stay on skin for a working day — the couplant dries within hours and never adheres. I show that in AMPS hydrogels acoustic transparency and skin adhesion are governed by the same compositional variable, so no single composition satisfies both, and resolve that constraint geometrically rather than chemically. The resulting couplant stays coupled for <span class="m">24&nbsp;h</span> and supports <span class="m">71</span> consecutive measurement cycles from one attachment.</p>
+</div>
+
+<nav class="nav">
+  Jump to
+  <a href="#layer-01">1. Acoustic interface</a><i>·</i>
+  <a href="#layer-02">2. Wearable transducer</a><i>·</i>
+  <a href="#layer-03">3. Flexible circuit</a><i>·</i>
+  <a href="#outputs">Manuscript</a>
+</nav>
+
+<section>
+  <h2 class="t"><span class="lbl">Context</span>Muscle monitoring needs more than one signal</h2>
+  <figure>
+    <div class="fw">
+      <svg viewBox="0 0 640 268" role="img" aria-label="Depth reached by each modality at the thigh: IMU gives no depth information, surface EMG reaches only superficial muscle, and ultrasound resolves through to the femur.">
+        <defs>
+          <pattern id="he" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--fg)" stroke-width="0.7" opacity="0.45"/>
+          </pattern>
+        </defs>
+
+        <g stroke="var(--rule)" stroke-width="1">
+          <line x1="260.7" y1="54" x2="260.7" y2="214"/>
+          <line x1="388.1" y1="54" x2="388.1" y2="214"/>
+          <line x1="520.4" y1="54" x2="520.4" y2="214"/>
+        </g>
+        <g font-size="10" fill="var(--muted)">
+          <text x="152" y="46">skin + fat</text>
+          <text x="263" y="46">rectus femoris</text>
+          <text x="390" y="46">vastus intermedius</text>
+          <text x="523" y="46">femur</text>
+        </g>
+
+        <g text-anchor="end" fill="var(--fg)">
+          <text x="140" y="90" class="sv" font-size="12.5">IMU</text>
+          <text x="140" y="104" font-size="9.5" fill="var(--muted)">kinematics</text>
+          <text x="140" y="143" class="sv" font-size="12.5">Surface EMG</text>
+          <text x="140" y="157" font-size="9.5" fill="var(--muted)">activation</text>
+          <text x="140" y="196" class="sv" font-size="12.5" font-weight="600">Ultrasound</text>
+          <text x="140" y="210" font-size="9.5" fill="var(--signal)">structure</text>
+        </g>
+
+        <rect x="150" y="78" width="7" height="16" fill="var(--fg)" opacity="0.55"/>
+        <text x="166" y="90" font-size="10.5" fill="var(--muted)">no depth information — limb motion only</text>
+
+        <rect x="150" y="131" width="138" height="16" fill="url(#he)" stroke="var(--fg)" stroke-width="0.8"/>
+        <text x="298" y="143" font-size="10.5" fill="var(--muted)">attenuates with depth; superficial muscle only</text>
+
+        <rect x="150" y="184" width="450" height="16" fill="var(--signal)" opacity="0.22"/>
+        <rect x="150" y="184" width="450" height="16" fill="none" stroke="var(--signal)" stroke-width="1.2"/>
+        <text x="596" y="178" font-size="10.5" fill="var(--signal)" text-anchor="end">resolves every boundary above</text>
+
+        <line x1="150" y1="230" x2="600" y2="230" stroke="var(--fg)" stroke-width="0.8"/>
+        <path d="M600 230 l-8 -3.5 v7 z" fill="var(--fg)"/>
+        <text x="150" y="246" font-size="10" fill="var(--muted)">skin surface</text>
+        <text x="600" y="246" font-size="10" fill="var(--muted)" text-anchor="end">depth</text>
+        <text x="150" y="264" font-size="10" fill="var(--muted)">bands drawn at the boundary depths measured on the thigh</text>
+      </svg>
+    </div>
+    <figcaption>Why the fusion module needs ultrasound at all. IMU and surface EMG stop at the skin; only ultrasound resolves the deep boundaries the deformation index is measured between. It is also the only one of the three that cannot yet stay on skin for a working day.</figcaption>
+  </figure>
+</section>
+
+<section id="layer-01">
+  <h2 class="t"><span class="lbl">Layer 1 · built</span>The couplant is the bottleneck</h2>
+
+  <div class="t">
+    <p>Two literatures have grown around hydrogel couplants — one measuring acoustic transparency, the other adhesion — and neither measured both on one compositional series. I came to this from the materials side, which is why the bottleneck I saw was interfacial chemistry rather than transducer design.</p>
+
+    <h3>No composition is both transparent and adhesive</h3>
+    <p>Across 20 to 40&nbsp;wt% AMPS, attenuation rises <strong>2.59-fold</strong> and 90° peel strength <strong>3.6-fold</strong> along the same axis.</p>
+  </div>
+
+  <figure>
+    <div class="fw">
+      <svg viewBox="0 0 620 400" role="img" aria-label="Attenuation against peel strength for AMPS20, AMPS30 and AMPS40. The region that is both transparent and adhesive contains no composition.">
+        <rect x="296" y="196" width="284" height="134" fill="var(--crit)" opacity="0.07"/>
+        <g stroke="var(--rule)" stroke-width="1">
+          <line x1="70" y1="267.8" x2="580" y2="267.8"/><line x1="70" y1="143.3" x2="580" y2="143.3"/><line x1="70" y1="81.1" x2="580" y2="81.1"/>
+        </g>
+        <line x1="70" y1="196.2" x2="580" y2="196.2" stroke="var(--signal)" stroke-width="1.3" stroke-dasharray="6 4"/>
+        <line x1="296.1" y1="50" x2="296.1" y2="330" stroke="var(--edge)" stroke-width="1.3" stroke-dasharray="6 4"/>
+        <line x1="70" y1="50" x2="70" y2="330" stroke="var(--fg)" stroke-width="1.3"/>
+        <line x1="70" y1="330" x2="580" y2="330" stroke="var(--fg)" stroke-width="1.3"/>
+        <g font-size="11" fill="var(--muted)" text-anchor="end">
+          <text x="62" y="334">0</text><text x="62" y="272">0.1</text><text x="62" y="210">0.2</text><text x="62" y="147">0.3</text><text x="62" y="85">0.4</text>
+        </g>
+        <g font-size="11" fill="var(--muted)" text-anchor="middle">
+          <text x="70" y="350">0</text><text x="183.3" y="350">2</text><text x="296.7" y="350">4</text><text x="410" y="350">6</text><text x="523.3" y="350">8</text>
+          <text x="325" y="372">peel strength [N m⁻¹]</text>
+        </g>
+        <text x="18" y="190" font-size="11" fill="var(--muted)" transform="rotate(-90 18 190)" text-anchor="middle">α [dB mm⁻¹]</text>
+        <polyline points="173.1,239.8 264.9,135.9 441.7,96.7" fill="none" stroke="var(--fg)" stroke-width="1.4" opacity="0.4"/>
+        <g fill="var(--soft)" stroke="var(--fg)" stroke-width="2">
+          <circle cx="173.1" cy="239.8" r="6"/><circle cx="264.9" cy="135.9" r="6"/><circle cx="441.7" cy="96.7" r="6"/>
+        </g>
+        <g class="sv" font-size="12.5" font-weight="600" fill="var(--fg)">
+          <text x="188" y="244">AMPS20</text><text x="279" y="131">AMPS30</text><text x="456" y="101">AMPS40</text>
+        </g>
+        <text x="76" y="192" font-size="11" fill="var(--signal)">soft tissue  0.215 dB mm⁻¹</text>
+        <text x="302" y="62" font-size="11" fill="var(--edge)">commercial hydrogel  3.99 N m⁻¹</text>
+        <text x="438" y="264" class="sv" font-size="13" font-weight="600" fill="var(--crit)" text-anchor="middle">no composition here</text>
+        <text x="438" y="282" font-size="11" fill="var(--crit)" text-anchor="middle">transparent AND adhesive</text>
+        <text x="70" y="392" font-size="10.5" fill="var(--muted)">means of 4–9 specimens per composition</text>
+      </svg>
+    </div>
+    <figcaption>A usable couplant must sit below the soft-tissue line and right of the commercial-adhesion line. The series walks past that corner: AMPS20, the one transparent composition, reaches <span class="m">45%</span> of commercial adhesion. A single-composition couplant is therefore a compromise whose size is set by the material rather than by the design — a negative result nobody had published.</figcaption>
+  </figure>
+
+  <div class="t">
+    <h3>Separating the two functions in space resolves it</h3>
+    <p>Earlier work stacked adhesive on acoustic, under a quarter wavelength so the stack would not register. I divided them radially instead.</p>
+  </div>
+
+  <figure>
+    <div class="fw">
+      <svg viewBox="0 0 700 300" role="img" aria-label="Cross-section and plan view: an 8 mm exposed face over a 10 mm transparent core flanked by a 4 mm adhesive edge, with the beam confined to the core.">
+        <rect x="120" y="58" width="160" height="44" rx="2" fill="var(--fg)" opacity="0.85"/>
+        <text x="200" y="85" class="sv" font-size="12" font-weight="600" fill="var(--bg)" text-anchor="middle">transducer</text>
+        <line x1="120" y1="116" x2="280" y2="116" stroke="var(--fg)" stroke-width="1.1"/>
+        <line x1="120" y1="110" x2="120" y2="122" stroke="var(--fg)" stroke-width="1.1"/>
+        <line x1="280" y1="110" x2="280" y2="122" stroke="var(--fg)" stroke-width="1.1"/>
+        <text x="200" y="132" font-size="11" fill="var(--fg)" text-anchor="middle">exposed face 8 mm</text>
+        <rect x="20" y="140" width="80" height="40" fill="var(--edge)" opacity="0.8"/>
+        <rect x="300" y="140" width="80" height="40" fill="var(--edge)" opacity="0.8"/>
+        <rect x="100" y="140" width="200" height="40" fill="var(--signal)" opacity="0.24"/>
+        <rect x="20" y="140" width="360" height="40" fill="none" stroke="var(--fg)" stroke-width="1.1"/>
+        <line x1="100" y1="140" x2="100" y2="180" stroke="var(--fg)" stroke-width="1"/>
+        <line x1="300" y1="140" x2="300" y2="180" stroke="var(--fg)" stroke-width="1"/>
+        <polygon points="120,140 280,140 268,248 132,248" fill="var(--signal)" opacity="0.26"/>
+        <line x1="120" y1="140" x2="132" y2="248" stroke="var(--signal)" stroke-width="1.4"/>
+        <line x1="280" y1="140" x2="268" y2="248" stroke="var(--signal)" stroke-width="1.4"/>
+        <line x1="10" y1="180" x2="390" y2="180" stroke="var(--fg)" stroke-width="1.8"/>
+        <rect x="10" y="180" width="380" height="68" fill="var(--fg)" opacity="0.05"/>
+        <text x="16" y="197" font-size="10.5" fill="var(--muted)">SKIN</text>
+        <text x="16" y="240" font-size="10.5" fill="var(--muted)">MUSCLE</text>
+        <text x="200" y="165" font-size="11" fill="var(--fg)" text-anchor="middle">core 10 mm · AMPS20</text>
+        <text x="60" y="165" font-size="10" fill="var(--bg)" text-anchor="middle">edge 4</text>
+        <text x="340" y="165" font-size="10" fill="var(--bg)" text-anchor="middle">edge 4</text>
+        <text x="200" y="272" class="sv" font-size="12" font-weight="600" fill="var(--signal)" text-anchor="middle">the beam never leaves the core</text>
+
+        <circle cx="560" cy="150" r="86" fill="var(--edge)" opacity="0.8" stroke="var(--fg)" stroke-width="1.1"/>
+        <circle cx="560" cy="150" r="48" fill="var(--signal)" opacity="0.24" stroke="var(--fg)" stroke-width="1.1"/>
+        <circle cx="560" cy="150" r="38" fill="none" stroke="var(--fg)" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <line x1="560" y1="150" x2="646" y2="150" stroke="var(--fg)" stroke-width="1"/>
+        <text x="612" y="145" font-size="10.5" fill="var(--fg)" text-anchor="middle">Ø18</text>
+        <text x="560" y="133" font-size="10.5" fill="var(--fg)" text-anchor="middle">Ø10</text>
+        <text x="560" y="172" font-size="10" fill="var(--muted)" text-anchor="middle">Ø8</text>
+        <text x="560" y="262" font-size="10.5" fill="var(--muted)" text-anchor="middle">AMPS37 + 3 wt% DMA edge</text>
+        <text x="560" y="278" font-size="10.5" fill="var(--signal)" text-anchor="middle">AMPS20 core</text>
+      </svg>
+    </div>
+    <figcaption>The <span class="m">10&nbsp;mm</span> core exceeds the <span class="m">8&nbsp;mm</span> exposed face, so the adhesive composition never enters the beam. No wavelength appears in that condition — it is frequency-independent and carries no thickness budget. Freed from the attenuation constraint, the edge reaches <span class="m">22.6&nbsp;N&nbsp;m⁻¹</span>, <span class="m">5.6×</span> the commercial hydrogel.</figcaption>
+  </figure>
+
+  <div class="t"><h3>It holds for a working day</h3></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Metric</th><th class="num">Concentric couplant</th><th class="num">Benchmark</th></tr></thead>
+      <tbody>
+        <tr><td>90° peel on glass</td><td class="num">22.6 N m⁻¹ · 5.6×</td><td class="num">3.99 commercial</td></tr>
+        <tr><td>90° peel on skin</td><td class="num">33.5 N m⁻¹ · 3.3×</td><td class="num">10.2 commercial</td></tr>
+        <tr><td>Mass kept at 5 h</td><td class="num">77%</td><td class="num">3× lower, gel</td></tr>
+        <tr><td>Phantom coupling</td><td class="num">24 h · 5/5 intact</td><td class="num">12.0 ± 3.5 h · 5/5 failed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="t"><p>Ultrasound gel lost <span class="m">40&nbsp;dB</span> of back-wall echo over the same day; the couplant held within one. Log-rank <span class="m">p&nbsp;=&nbsp;0.0018</span>.</p></div>
+
+  <figure>
+    <div class="fp">
+      <img src="fig/adhesion.png" width="2878" height="1476" alt="The transducer housing lifted from the forearm; the couplant stays bonded and tents the skin upward with it.">
+    </div>
+    <figcaption>Lifting the housing tents the skin rather than releasing it.</figcaption>
+  </figure>
+
+  <div class="t">
+    <h3>One attachment shows a timescale discrete assessment cannot</h3>
+    <p>2 participants, 13 sessions, 71 cycles — the couplant was never re-applied within a session.</p>
+  </div>
+
+  <figure>
+    <div class="fp pad">
+      <img src="fig/setup.png" width="1761" height="1152" alt="Illustration of a seated participant on a leg-extension machine, with a callout showing the transducer over the concentric couplant on the quadriceps, between two stimulation electrodes.">
+    </div>
+    <figcaption>Seated leg extensions, with the 5&nbsp;MHz probe over the couplant on the quadriceps and stimulation electrodes either side. The housing, the strap and the cable are what layers 2 and 3 remove.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="sig">
+      <div class="sigtop">
+        <div class="br" style="left:9%;width:13.8%"><span>baseline</span></div>
+        <div class="br" style="left:22.8%;width:77%"><span>stimulation · 4 s on / 1 s off · ×4</span></div>
+      </div>
+      <div class="sigimg">
+        <img src="fig/mmode_clean.png" width="940" height="291" alt="Thirty seconds of M-mode through the quadriceps: skin and fat at the top, then rectus femoris, vastus intermedius and the femur echo, which steps deeper during each of four stimulation windows.">
+        <u style="top:13%">skin + fat</u>
+        <u style="top:39%">rectus femoris</u>
+        <u style="top:68%">vastus intermedius</u>
+        <u style="top:91%">femur</u>
+      </div>
+      <div class="sigaxis">
+        <i style="left:3.55%"></i><b style="left:3.55%">5</b>
+        <i style="left:22.83%"></i><b style="left:22.83%">10</b>
+        <i style="left:42.06%"></i><b style="left:42.06%">15</b>
+        <i style="left:61.33%"></i><b style="left:61.33%">20</b>
+        <i style="left:80.56%"></i><b style="left:80.56%">25</b>
+        <i style="left:99.84%"></i><b style="left:99.84%">30</b>
+      </div>
+      <div class="sigfoot"><span>time [s]</span><span>depth increases downward</span></div>
+    </div>
+    <figcaption>What the probe returns. Each step in the femur echo is the muscle thickening under one stimulation window, and the deformation index is that thickness change, measured between the boundaries drawn here.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="fw">
+      <svg viewBox="0 0 640 312" role="img" aria-label="Within one cycle the deformation index drops to 66 percent and recovers to 79. Across five cycles the pre-exercise value falls from 100 to 58.">
+        <g stroke="var(--rule)" stroke-width="1">
+          <line x1="60" y1="250" x2="290" y2="250"/><line x1="370" y1="250" x2="610" y2="250"/>
+          <line x1="60" y1="150" x2="290" y2="150"/><line x1="370" y1="150" x2="610" y2="150"/>
+        </g>
+        <line x1="60" y1="83.3" x2="290" y2="83.3" stroke="var(--fg)" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="370" y1="83.3" x2="610" y2="83.3" stroke="var(--fg)" stroke-width="1" stroke-dasharray="4 4"/>
+        <g font-size="10.5" fill="var(--muted)" text-anchor="end">
+          <text x="52" y="87">100</text><text x="52" y="154">80</text><text x="52" y="254">50</text>
+        </g>
+        <text x="16" y="165" font-size="10.5" fill="var(--muted)" transform="rotate(-90 16 165)" text-anchor="middle">deformation index [%]</text>
+        <text x="60" y="42" class="sv" font-size="12.5" font-weight="600" fill="var(--fg)">Within one cycle</text>
+        <text x="60" y="58" font-size="10.5" fill="var(--muted)">four windows, 40 s apart</text>
+        <rect x="88" y="70" width="29" height="180" fill="var(--fg)" opacity="0.06"/>
+        <text x="102" y="266" font-size="9.5" fill="var(--muted)" text-anchor="middle">exercise</text>
+        <polyline points="60,83.3 117.5,196.7 175,183.3 232.5,163.3 290,153.3" fill="none" stroke="var(--signal)" stroke-width="2.2"/>
+        <g fill="var(--signal)">
+          <circle cx="60" cy="83.3" r="3.8"/><circle cx="117.5" cy="196.7" r="3.8"/><circle cx="175" cy="183.3" r="3.8"/>
+          <circle cx="232.5" cy="163.3" r="3.8"/><circle cx="290" cy="153.3" r="3.8"/>
+        </g>
+        <text x="117.5" y="213" font-size="10.5" fill="var(--signal)" text-anchor="middle">66</text>
+        <text x="290" y="145" font-size="10.5" fill="var(--signal)" text-anchor="end">79</text>
+        <g font-size="10" fill="var(--muted)" text-anchor="middle">
+          <text x="60" y="286">Pre</text><text x="117.5" y="286">Post</text><text x="175" y="286">Rec 1</text>
+          <text x="232.5" y="286">Rec 2</text><text x="290" y="286">Rec 3</text>
+        </g>
+        <text x="175" y="304" class="sv" font-size="11" fill="var(--signal)" text-anchor="middle">recovers</text>
+        <text x="370" y="42" class="sv" font-size="12.5" font-weight="600" fill="var(--fg)">Across one session</text>
+        <text x="370" y="58" font-size="10.5" fill="var(--muted)">pre-exercise value, cycle to cycle</text>
+        <polyline points="370,83.3 430,143.3 490,193.3 550,203.3 610,223.3" fill="none" stroke="var(--edge)" stroke-width="2.2"/>
+        <g fill="var(--edge)">
+          <circle cx="370" cy="83.3" r="3.8"/><circle cx="430" cy="143.3" r="3.8"/><circle cx="490" cy="193.3" r="3.8"/>
+          <circle cx="550" cy="203.3" r="3.8"/><circle cx="610" cy="223.3" r="3.8"/>
+        </g>
+        <g font-size="10.5" fill="var(--edge)" text-anchor="middle">
+          <text x="430" y="136">82</text><text x="490" y="186">67</text><text x="550" y="196">64</text><text x="610" y="216">58</text>
+        </g>
+        <g font-size="10" fill="var(--muted)" text-anchor="middle">
+          <text x="370" y="286">1</text><text x="430" y="286">2</text><text x="490" y="286">3</text><text x="550" y="286">4</text><text x="610" y="286">5</text>
+          <text x="490" y="304" class="sv" font-size="11" fill="var(--edge)">declines, front-loaded</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Two timescales, moving in opposite directions. Within a cycle the index recovers; across the session the pre-exercise value itself falls <span class="m">−41.6%</span>, in every one of 12 sessions. Both components of fatigue show — swelling <span class="m">+7.8%</span> against contractility <span class="m">−37.6%</span>. Between-attachment spread is <span class="m">2.8×</span> the per-cycle effect, so re-applying the couplant would have buried this signal.</figcaption>
+  </figure>
+
+  <details>
+    <summary>Four limits on these claims</summary>
+    <ol>
+      <li>Skin adhesion was compared on one volunteer, without same-day pairing, so it does not resolve inter-individual variation.</li>
+      <li>Coupling stability was measured on a phantom, excluding wearer motion; post-collapse gel values sit at the noise floor, making 24 h a floor estimate.</li>
+      <li>Torque was not measured here, so the decline is not independently confirmed as fatigue within this study.</li>
+      <li>Stimulation current was not recorded, so the fall in evoked deformation cannot be separated from change at the electrode–skin interface.</li>
+    </ol>
+  </details>
+</section>
+
+<section id="layer-02">
+  <h2 class="t"><span class="lbl">Layer 2 · next</span>Make the element bend with the body</h2>
+  <div class="t">
+    <p>Solving the interface moved the limit one layer out. A conformal element removes the housing, the strap and the pressure point at once — and the specification it has to meet is already fixed by layer 1.</p>
+  </div>
+  <div class="tw">
+    <table class="key-col">
+      <tbody>
+        <tr><td>Survives</td><td>The core-wider-than-aperture condition holds no wavelength, so a new element does not invalidate it.</td></tr>
+        <tr><td>Re-derive</td><td>It was set against a flat 8 mm face; a curved element needs the core sized for a curved footprint.</td></tr>
+        <tr><td>Gets easier</td><td>33.5 N m⁻¹ on skin can supply the contact pressure the strap supplies now.</td></tr>
+        <tr><td>Becomes the test</td><td>Back-wall amplitude, temporal SNR and reverberation ratio transfer as the acceptance bar.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="t"><p>The open question is whether bending walks the beam out of the core.</p></div>
+</section>
+
+<section id="layer-03">
+  <h2 class="t"><span class="lbl">Layer 3 · planned</span>Cut the cable</h2>
+  <div class="t">
+    <p>Every number on this page was acquired through a coaxial cable to a benchtop pulser-receiver. The metrics that decide whether a couplant failed also decide whether a front end is good enough, so this layer inherits a specification rather than a wish list.</p>
+  </div>
+  <div class="tw">
+    <table class="key-col">
+      <tbody>
+        <tr><td>Dynamic range</td><td>Gel collapse spans 40 dB; the couplant holds within 1 dB. The front end must resolve a decibel across that span.</td></tr>
+        <tr><td>Noise floor</td><td>43–56 dB temporal SNR is what the benchtop system delivers today — the number to approach.</td></tr>
+        <tr><td>Duty cycle</td><td>Four 4 s windows per cycle, cycles 10 min apart — a very different power budget from continuous imaging.</td></tr>
+        <tr><td>Depth</td><td>Rectus femoris to femur at 5 MHz sets the time-of-flight window and sampling rate.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="t"><p>Each layer removes one reason the measurement has to happen in a laboratory. The couplant removed re-application; the transducer removes the housing; the circuit removes the room.</p></div>
+</section>
+
+<section id="outputs">
+  <h2 class="t"><span class="lbl">Outputs</span>Manuscript and figures</h2>
+  <div class="t">
+    <p style="font-family:var(--sans);font-size:15px;line-height:1.6">
+      <strong>Y. Lee</strong> et al. “Decoupling Adhesion from Acoustic Attenuation: A Concentric Hydrogel Couplant for Long-Duration Wearable Ultrasound.”<br>
+      <span style="color:var(--muted)">First author · prepared for <em>Advanced Healthcare Materials</em> · 9,025 words, 5 figures, 2 tables, 22 SI items · IRB approved</span>
+    </p>
+  </div>
+
+  <div class="sheet">
+    <button class="thumb" type="button" data-src="fig/fig1.png"><img src="fig/fig1.png" alt="Figure 1 — coupled-property map, concentric geometry, fabrication, device."><span>problem &amp; design</span></button>
+    <button class="thumb" type="button" data-src="fig/fig2.png"><img src="fig/fig2.png" alt="Figure 2 — impedance and attenuation against AMPS content."><span>core</span></button>
+    <button class="thumb" type="button" data-src="fig/fig3.png"><img src="fig/fig3.png" alt="Figure 3 — peel strength against composition and DMA content."><span>edge</span></button>
+    <button class="thumb" type="button" data-src="fig/fig4.png"><img src="fig/fig4.png" alt="Figure 4 — 24 hour phantom coupling."><span>24 h</span></button>
+    <button class="thumb" type="button" data-src="fig/fig5.png"><img src="fig/fig5.png" alt="Figure 5 — protocol, within-cycle recovery, across-session decline."><span>on-body</span></button>
+  </div>
+
+  <div class="cols">
+    <div><h4>Materials</h4>AMPS and DMA hydrogel synthesis, two-stage molding, 90° peel</div>
+    <div><h4>Acoustics</h4>Impedance, attenuation, phantom design, pulse-echo quality metrics</div>
+    <div><h4>Biosignal</h4>A-mode and M-mode deformation, evoked contraction protocols</div>
+    <div><h4>Computation</h4>Python, survival analysis, figure automation</div>
+  </div>
+
+  <div class="t">
+    <h4>Keywords</h4>
+    <p class="kw">wearable ultrasound · hydrogel couplant · acoustic attenuation · skin adhesion · muscle fatigue monitoring · sonomyography · flexible electronics · biosignal analysis</p>
+  </div>
+
+  <details>
+    <summary>Key references</summary>
+    <ol class="refs">
+      <li>C. Wang et al., <i>Science</i> 2022, 377, 517 — bioadhesive hydrogel, axial separation.</li>
+      <li>K. W. K. Tang et al., <i>Nat. Commun.</i> 2025, 16, 4940 — AMPS couplant, states the dehydration problem.</li>
+      <li>J. T. Alvarez et al., <i>IEEE TNSRE</i> 2025, 33, 10 — deformation index against dynamometer torque.</li>
+      <li>M. Lin et al., <i>Nat. Biotechnol.</i> 2024, 42, 448 — integrated wearable ultrasound imaging.</li>
+      <li>X. Gao et al., <i>Nat. Electron.</i> 2024, 7, 1035 — single-element wearable muscle sensing.</li>
+      <li>L. A. Negron et al., <i>IEEE TUFFC</i> 2002, 49, 1543 — attenuation against polymer concentration.</li>
+      <li>J. Yi et al., <i>ACS Appl. Bio Mater.</i> 2020, 3, 8943 — catechol adhesive for intraoral ultrasound.</li>
+    </ol>
+  </details>
+</section>
+
+<p class="foot">Yeeun Lee · Mechanical Systems Engineering, Sookmyung Women's University · <a href="https://www.linkedin.com/in/yeeunlee-smwu">linkedin.com/in/yeeunlee-smwu</a></p>
+
+</div>
+
+<div id="ov" hidden role="dialog" aria-label="Enlarged figure"><img id="ovimg" alt=""></div>
+
+<script>
+(function(){
+  var ov=document.getElementById('ov'),oi=document.getElementById('ovimg');
+  function close(){ov.hidden=true;oi.src='';}
+  Array.prototype.forEach.call(document.querySelectorAll('.thumb'),function(b){
+    b.addEventListener('click',function(){
+      var im=b.querySelector('img');
+      oi.src=b.getAttribute('data-src');oi.alt=im?im.alt:'';ov.hidden=false;
+    });
+  });
+  ov.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden){close();}});
+})();
+</script>
+
+</body>
+</html>
