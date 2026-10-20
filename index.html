@@ -210,6 +210,9 @@ ol.refs li{margin-bottom:9px}
   .head{padding-block:64px 0}
   .t,.abs,.tw,details,.sheet,.cols,figure{margin-left:0;margin-right:0}
   .nav{margin-left:auto;margin-right:auto;justify-content:center;max-width:none}
+  /* single-column section, centred on the page */
+  section.mid>h2{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
+  section.mid>figure{margin-left:auto;margin-right:auto}
   h2.t,.t,.abs,details{max-width:606px}
   .row .t,.row .tw,.row details,.row .abs{max-width:none}
   .row.flip{grid-template-columns:minmax(0,1.42fr) minmax(0,0.9fr)}
@@ -316,7 +319,7 @@ ol.refs li{margin-bottom:9px}
   <a href="#outputs">Manuscript</a>
 </nav>
 
-<section>
+<section class="mid">
   <h2 class="t"><span class="lbl">Context</span>Muscle monitoring needs more than one signal</h2>
   <figure>
     <div class="fw">
